@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.local.i_sit_bbs.dao.CommentInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.local.i_sit_bbs.pojo.CommentInfo" >
+    <constructor >
+      <arg column="comment_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="article_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="reviewer_username" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="comment_text" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="comment_pictures" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="comment_time" jdbcType="DATE" javaType="java.lang.String" />
+      <arg column="is_token" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="support" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="oppose" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="if_source" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+      <arg column="source_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+      <arg column="parent_id" jdbcType="INTEGER" javaType="java.lang.Integer"/>
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.local.i_sit_bbs.pojo.CommentInfo" >
+    insert into comment_info (article_id, reviewer_username, comment_text,
+      comment_pictures, comment_time,is_token)
+    values (#{articleId,jdbcType=INTEGER}, #{reviewerUsername,jdbcType=VARCHAR}, #{commentText,jdbcType=VARCHAR},
+      #{commentPictures,jdbcType=VARCHAR}, #{commentTime,jdbcType=VARCHAR},#{isToken,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.local.i_sit_bbs.pojo.CommentInfo" >
+    insert into comment_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="reviewerUsername != null" >
+        reviewer_username,
+      </if>
+      <if test="commentText != null" >
+        comment_text,
+      </if>
+      <if test="commentPictures != null" >
+        comment_pictures,
+      </if>
+      <if test="commentTime != null" >
+        comment_time,
+      </if>
+      <if test="isToken != null">
+        is_token,
+      </if>
+      support,oppose,
+      <if test="ifSource!=null">
+        if_source,
+      </if>
+      <if test="sourceId!=null">
+        source_id,
+      </if>
+      <if test="parentId!=null">
+        parent_id,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="articleId != null" >
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="reviewerUsername != null" >
+        #{reviewerUsername,jdbcType=VARCHAR},
+      </if>
+      <if test="commentText != null" >
+        #{commentText,jdbcType=VARCHAR},
+      </if>
+      <if test="commentPictures != null" >
+        #{commentPictures,jdbcType=VARCHAR},
+      </if>
+      <if test="commentTime != null" >
+        str_to_date(#{commentTime},'%Y-%m-%d %H:%i:%s'),
+      </if>
+      <if test="isToken != null">
+        #{isToken,jdbcType=VARCHAR},
+      </if>
+      0,0,
+      <if test="ifSource!=null">
+        #{ifSource},
+      </if>
+      <if test="sourceId!=null">
+        #{sourceId},
+      </if>
+      <if test="parentId!=null">
+        #{parentId},
+      </if>
+    </trim>
+  </insert>
+  
+  <select id="getComment" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from comment_info where article_id=#{articleId,jdbcType=INTEGER} order by comment_time DESC
+  </select>
+
+  <select id="getCommentById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from comment_info where comment_id=#{commentId}
+  </select>
+
+  <delete id="deleteComment" parameterType="com.local.i_sit_bbs.pojo.CommentInfo">
+    delete from comment_info where 1=1
+    <if test="comment_id!=null">
+      and comment_id=#{commentId}
+    </if>
+    <if test="articleId!=null">
+      and article_id=#{articleId,jdbcType=INTEGER}
+    </if>
+    <if test="reviewerId!=null">
+      and reviewer_username=#{reviewerUsername,jdbcType=INTEGER}
+    </if>
+    <if test="commentText!=null">
+      and comment_text=#{commentText,VARCHAR}
+    </if>
+    <if test="commentTime!=null">
+      and comment_time= str_to_date(#{commentTime},'%Y-%m-%d %H:%i:%s'),
+    </if>
+  </delete>
+
+  <update id="updateComment" parameterType="com.local.i_sit_bbs.pojo.CommentInfo">
+    update comment_info
+    <set>
+      <if test="support!=null">
+        support=#{support},
+      </if>
+      <if test="oppose!=null">
+        oppose=#{oppose}
+      </if>
+    </set>
+    where comment_id=#{commentId}
+  </update>
+</mapper>

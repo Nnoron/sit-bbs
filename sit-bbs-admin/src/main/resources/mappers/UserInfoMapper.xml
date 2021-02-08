@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.local.i_sit_bbs.dao.UserInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.local.i_sit_bbs.pojo.UserInfo" >
+    <constructor >
+      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="user_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="nick_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="real_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="gender" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="birthday" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="college" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="building" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="major" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="brief_introduce" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="head_path" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="personal_labels" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="arv_time" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="valid" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.local.i_sit_bbs.pojo.UserInfo" >
+    insert into user_info (user_id,user_name, nick_name, real_name,
+      gender, birthday, college, 
+      building, major, brief_introduce, 
+      head_path, personal_labels)
+    values (#{userId,jdbcType=INTEGER},#{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR}, #{realName,jdbcType=VARCHAR},
+      #{gender,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, #{college,jdbcType=VARCHAR}, 
+      #{building,jdbcType=VARCHAR}, #{major,jdbcType=VARCHAR}, #{briefIntroduce,jdbcType=VARCHAR}, 
+      #{headPath,jdbcType=VARCHAR}, #{personalLabels,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.local.i_sit_bbs.pojo.UserInfo" useGeneratedKeys="true" keyProperty="userId" keyColumn="user_id">
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userName != null">
+        user_name,
+      </if>
+      <if test="nickName != null" >
+        nick_name,
+      </if>
+      <if test="realName != null" >
+        real_name,
+      </if>
+      <if test="gender != null" >
+        gender,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="college != null" >
+        college,
+      </if>
+      <if test="building != null" >
+        building,
+      </if>
+      <if test="major != null" >
+        major,
+      </if>
+      <if test="briefIntroduce != null" >
+        brief_introduce,
+      </if>
+      <if test="headPath != null" >
+        head_path,
+      </if>
+      <if test="personalLabels != null" >
+        personal_labels,
+      </if>
+        register_time,
+      <if test="valid!=null">
+        valid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="userName != null">
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        #{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        #{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null" >
+        #{college,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        #{building,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        #{major,jdbcType=VARCHAR},
+      </if>
+      <if test="briefIntroduce != null" >
+        #{briefIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="headPath != null" >
+        #{headPath,jdbcType=VARCHAR},
+      </if>
+      <if test="personalLabels != null" >
+        #{personalLabels,jdbcType=VARCHAR},
+      </if>
+      now(),
+      <if test="valid!=null">
+        #{valid},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="getUserInfo" resultMap="BaseResultMap" parameterType="com.local.i_sit_bbs.pojo.UserInfo">
+    select * from user_info where 1=1
+    <if test="userName!=null and userName!=''">
+      and user_name=#{userName}
+    </if>
+    <if test="nickName!=null">
+      and nick_name=#{nickName}
+    </if>
+    <if test="gender!=null and gender!=''">
+      and gender=#{gender}
+    </if>
+    <if test="birthday!=null">
+      and birthday=#{birthday}
+    </if>
+    <if test="college!=null and college!=''">
+      and college=#{college}
+    </if>
+    <if test="building!=null">
+      and building=#{building}
+    </if>
+    <if test="major!=null">
+      and major=#{major}
+    </if>
+    <if test="registerTime!=null and registerTime!=''">
+      and register_time <![CDATA[>=]]> #{registerTime}
+    </if>
+  </select>
+  <select id="getUserInfoById" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select * from user_info where user_id=#{id,jdbcType=INTEGER}
+  </select>
+  <select id="getUserInfoByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+    select * from user_info where valid=1 and user_id in
+    <foreach collection="list" item="item" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+  <select id="getUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select * from user_info where user_name=#{userName,jdbcType=VARCHAR}
+  </select>
+  <update id="editUserInfo" parameterType="com.local.i_sit_bbs.pojo.UserInfo">
+    update user_info
+    <set>
+      <if test="userName != null">
+        user_name=#{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="nickName != null" >
+        nick_name=#{nickName,jdbcType=VARCHAR},
+      </if>
+      <if test="realName != null" >
+        real_name=#{realName,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        gender=#{gender,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday=#{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="college != null" >
+        college=#{college,jdbcType=VARCHAR},
+      </if>
+      <if test="building != null" >
+        building=#{building,jdbcType=VARCHAR},
+      </if>
+      <if test="major != null" >
+        major=#{major,jdbcType=VARCHAR},
+      </if>
+      <if test="briefIntroduce != null" >
+        brief_introduce=#{briefIntroduce,jdbcType=VARCHAR},
+      </if>
+      <if test="headPath != null" >
+        head_path=#{headPath,jdbcType=VARCHAR},
+      </if>
+      <if test="personalLabels != null" >
+        personal_labels=#{personalLabels,jdbcType=VARCHAR},
+      </if>
+      <if test="valid != null" >
+        valid=#{valid},
+      </if>
+
+    </set>
+    where user_id=#{userId,jdbcType=INTEGER}
+  </update>
+  <update id="addArv" parameterType="com.local.i_sit_bbs.pojo.UserInfo">
+    update user_info
+    set arv_time=str_to_date(#{arvTime},'%Y-%m-%d')
+    where user_id=#{userId}
+  </update>
+
+</mapper>

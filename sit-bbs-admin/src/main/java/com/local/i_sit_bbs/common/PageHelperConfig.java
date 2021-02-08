@@ -1,0 +1,29 @@
+package com.local.i_sit_bbs.common;
+
+import com.github.pagehelper.PageHelper;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+
+import java.util.Properties;
+
+/**
+ * @description:
+ * @author: chenzhongchao
+ * @create: 2019-05-07
+ **/
+@Configuration
+public class PageHelperConfig {
+
+    @Bean
+    public PageHelper getPageHelper() {
+        PageHelper pageHelper = new PageHelper();
+        Properties properties = new Properties();
+        properties.setProperty("helperDialect", "mysql");
+        properties.setProperty("reasonable", "true");
+        properties.setProperty("supportMethodsArguments", "true");
+        properties.setProperty("params", "count=countSql");
+        pageHelper.setProperties(properties);
+        return pageHelper;
+    }
+
+}

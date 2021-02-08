@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.local.i_sit_bbs.dao.TopMapper" >
+  <resultMap id="BaseResultMap" type="com.local.i_sit_bbs.pojo.Top" >
+    <constructor >
+      <arg column="article_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="set_time" jdbcType="DATE" javaType="java.lang.String" />
+      <arg column="type" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.local.i_sit_bbs.pojo.Top" >
+    insert into top_list (article_id, set_time)
+    values (#{articleId,jdbcType=INTEGER},str_to_date(#{setTime,jdbcType=VARCHAR},'%Y-%m-%d'))
+  </insert>
+  <insert id="insertSelective" parameterType="com.local.i_sit_bbs.pojo.Top" >
+    insert into top_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="setTime != null" >
+        set_time,
+      </if>
+      <if test="type!=null">
+        type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="articleId != null" >
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="setTime != null" >
+        #{setTime,jdbcType=VARCHAR},
+      </if>
+      <if test="type!=null">
+        #{type}
+      </if>
+    </trim>
+  </insert>
+
+  <select id="getTopsByParams" parameterType="com.local.i_sit_bbs.pojo.Top" resultMap="BaseResultMap">
+    select * from top_list where 1=1
+    <if test="setTime!=null">
+      and set_time <![CDATA[>=]]> str_to_date(#{setTime},'%Y-%m-%d')
+    </if>
+    <if test="type!=null">
+      and type=#{type}
+    </if>
+  </select>
+
+  <select id="getTopsNumThisWeek" parameterType="java.lang.String" resultType="java.lang.Integer">
+    select count(*) from top_list where set_time=#{date}
+  </select>
+  <select id="getTopById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from top_list where article_id=#{articleId}
+  </select>
+
+  <delete id="deleteTop" parameterType="java.lang.Integer">
+    delete from top_list where article_id=#{id}
+  </delete>
+</mapper>

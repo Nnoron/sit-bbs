@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.local.i_sit_bbs.dao.CollectionInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.local.i_sit_bbs.pojo.CollectionInfo" >
+    <constructor >
+      <arg column="user_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="article_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="collect_time" jdbcType="DATE" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.local.i_sit_bbs.pojo.CollectionInfo" >
+    insert into collection_info (user_id, article_id)
+    values (#{userId,jdbcType=INTEGER}, #{articleId,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.local.i_sit_bbs.pojo.CollectionInfo" >
+    insert into collection_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="collectTime!=null">
+        collect_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="articleId != null" >
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="collectTime!=null">
+        #{collectTime},
+      </if>
+    </trim>
+  </insert>
+
+  <delete id="deleteCollection" parameterType="com.local.i_sit_bbs.pojo.CollectionInfo">
+    delete from collection_info where
+    user_id=#{userId} and article_id=#{articleId}
+  </delete>
+  <select id="getCollections" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from collection_info
+    where user_id=#{userId}
+  </select>
+
+</mapper>

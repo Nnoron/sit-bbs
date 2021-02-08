@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.local.i_sit_bbs.dao.CORecordMapper">
+  <resultMap id="BaseResultMap" type="com.local.i_sit_bbs.pojo.CORecord">
+    <id column="comment_id" jdbcType="INTEGER" property="commentId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from co_record
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.local.i_sit_bbs.pojo.CORecord">
+    insert into co_record (comment_id, user_id)
+    values (#{commentId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="com.local.i_sit_bbs.pojo.CORecord">
+    update co_record
+    set user_id = #{userId,jdbcType=INTEGER}
+    where comment_id = #{commentId,jdbcType=INTEGER}
+  </update>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select comment_id, user_id
+    from co_record
+  </select>
+  <select id="ifExisted" parameterType="com.local.i_sit_bbs.pojo.CORecord" resultType="java.lang.Integer">
+    select count(*) from co_record
+    where user_id=#{userId} and comment_id=#{commentId}
+  </select>
+</mapper>

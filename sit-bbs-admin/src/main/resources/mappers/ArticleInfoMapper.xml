@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.local.i_sit_bbs.dao.ArticleInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.local.i_sit_bbs.pojo.ArticleInfo" >
+    <constructor >
+      <arg column="article_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="author_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="article_title" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="article_text" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="article_pictures" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="publish_time" jdbcType="DATE" javaType="java.lang.String" />
+      <arg column="article_class" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="article_state" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="labels" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="comment_time" jdbcType="DATE" javaType="java.lang.String" />
+      <arg column="replier_nickname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="replier_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="comment_num" jdbcType="INTEGER" javaType="java.lang.Integer" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.local.i_sit_bbs.pojo.ArticleInfo" >
+    insert into article_info (article_id, author_id, article_title, 
+      article_text, article_pictures, publish_time, 
+      article_class, article_state, labels,comment_time,replier_nickname,replier_id
+      )
+    values (#{articleId,jdbcType=INTEGER}, #{authorId,jdbcType=INTEGER}, #{articleTitle,jdbcType=VARCHAR}, 
+      #{articleText,jdbcType=VARCHAR}, #{articlePictures,jdbcType=VARCHAR}, #{publishTime,jdbcType=VARCHAR}, 
+      #{articleClass,jdbcType=INTEGER}, #{articleState,jdbcType=INTEGER}, #{labels,jdbcType=VARCHAR},
+      #{commentTime.jdbcType=VARCHAR},#{replierNickname},#{replierId}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.local.i_sit_bbs.pojo.ArticleInfo" >
+    insert into article_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="articleId != null" >
+        article_id,
+      </if>
+      <if test="authorId != null" >
+        author_id,
+      </if>
+      <if test="articleTitle != null" >
+        article_title,
+      </if>
+      <if test="articleText != null" >
+        article_text,
+      </if>
+      <if test="articlePictures != null" >
+        article_pictures,
+      </if>
+      <if test="publishTime != null" >
+        publish_time,
+      </if>
+      <if test="articleClass != null" >
+        article_class,
+      </if>
+      <if test="articleState != null" >
+        article_state,
+      </if>
+      <if test="labels != null" >
+        labels,
+      </if>
+      <if test="commentTime != null" >
+        comment_time,
+      </if>
+      <if test="replierNickname != null" >
+        replier_nickname,
+      </if>
+      <if test="replierId != null" >
+        replier_id,
+      </if>
+      comment_num,
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="articleId != null" >
+        #{articleId,jdbcType=INTEGER},
+      </if>
+      <if test="authorId != null" >
+        #{authorId,jdbcType=INTEGER},
+      </if>
+      <if test="articleTitle != null" >
+        #{articleTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="articleText != null" >
+        #{articleText,jdbcType=VARCHAR},
+      </if>
+      <if test="articlePictures != null" >
+        #{articlePictures,jdbcType=VARCHAR},
+      </if>
+      <if test="publishTime != null" >
+        str_to_date(#{publishTime},'%Y-%m-%d %H:%i:%s'),
+      </if>
+      <if test="articleClass != null" >
+        #{articleClass,jdbcType=INTEGER},
+      </if>
+      <if test="articleState != null" >
+        #{articleState,jdbcType=INTEGER},
+      </if>
+      <if test="labels != null" >
+        #{labels,jdbcType=VARCHAR},
+      </if>
+      <if test="commentTime != null" >
+        str_to_date(#{commentTime},'%Y-%m-%d %H:%i:%s'),
+      </if>
+      <if test="replierNickname != null" >
+        #{replierNickname},
+      </if>
+      <if test="replierId != null" >
+        #{replierId},
+      </if>
+      0,
+    </trim>
+  </insert>
+  <insert id="insertPhoto" parameterType="com.local.i_sit_bbs.pojo.ArticlePhoto">
+    insert into article_photo (photo_path,article_id,create_time)
+    values (#{photoPath},#{articleId},now())
+  </insert>
+  <delete id="deletePhoto" parameterType="java.lang.String">
+    delete from article_photo where photo_path=#{fileName}
+  </delete>
+
+  <delete id="deleteArticle" parameterType="java.lang.Integer">
+    delete from article_info where article_id=#{articleId,jdbcType=INTEGER}
+  </delete>
+  <select id="getArticles" parameterType="com.local.i_sit_bbs.pojo.ArticleInfo" resultMap="BaseResultMap">
+    select * from article_info
+    where article_state!=1
+    <if test="articleId!=null">
+      and article_id=#{articleId,jdbcType=INTEGER}
+    </if>
+    <if test="authorId!=null">
+      and author_id=#{authorId,jdbcType=INTEGER}
+    </if>
+    <if test="articleTitle!=null and articleTitle!=''">
+      and article_title like concat('%',#{articleTitle,jdbcType=VARCHAR},'%')
+    </if>
+    <if test="publishTime!=null and publishTime!=''">
+      and publish_time <![CDATA[>=]]> #{publishTime}
+    </if>
+    <if test="articleClass!=null and articleClass!=''">
+      and article_class=#{articleClass,jdbcType=INTEGER}
+    </if>
+    <if test="articleState!=null">
+      and article_state=#{articleState,jdbcType=INTEGER}
+    </if>
+    <if test="labels!=null">
+      and labels=#{labels,jdbcType=VARCHAR}
+    </if>
+    <if test="commentTime != null" >
+      and comment_time=#{commentTime}
+    </if>
+    order by publish_time DESC
+  </select>
+  <update id="editArticle" parameterType="com.local.i_sit_bbs.pojo.ArticleInfo">
+    update article_info
+    <set>
+      <if test="articleTitle!=null">
+        article_Title=#{articleTitle},
+      </if>
+      <if test="articleText!=null">
+        article_text=#{articleText},
+      </if>
+      <if test="articlePictures!=null">
+        article_pictures=#{articlePictures},
+      </if>
+      <if test="articleState!=null">
+        article_state=#{articleState},
+      </if>
+      <if test="commentTime!=null">
+        comment_time=#{commentTime},
+      </if>
+      <if test="replierNickname!=null">
+        replier_nickname=#{replierNickname},
+      </if>
+      <if test="replierId!=null">
+        replier_id=#{replierId},
+      </if>
+      <if test="commentNum!=null">
+        comment_num=comment_num+1,
+      </if>
+    </set>
+    where article_id=#{articleId}
+  </update>
+  <select id="getArticleById" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select * from article_info where article_id=#{articleId}
+  </select>
+  <select id="getArticlesByIds" parameterType="java.util.List" resultMap="BaseResultMap">
+    select * from article_info where article_id in
+    <foreach collection="list" item="item" open="(" close=")" separator=",">
+      #{item}
+    </foreach>
+  </select>
+  <select id="getHotThisWeek" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from article_info
+    where publish_time <![CDATA[>=]]> str_to_date(#{date},'%Y-%m-%d') and article_state!=1 order by comment_num DESC limit 20
+  </select>
+</mapper>

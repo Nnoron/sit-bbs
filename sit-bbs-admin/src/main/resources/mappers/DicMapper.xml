@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.local.i_sit_bbs.dao.DicMapper" >
+  <resultMap id="BaseResultMap" type="com.local.i_sit_bbs.pojo.Dic" >
+    <constructor >
+      <arg column="type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="key" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="value" jdbcType="VARCHAR" javaType="java.lang.String" />
+    </constructor>
+  </resultMap>
+  <insert id="insert" parameterType="com.local.i_sit_bbs.pojo.Dic" >
+    insert into dic_list (type, key, value
+      )
+    values (#{type,jdbcType=VARCHAR}, #{key,jdbcType=INTEGER}, #{value,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.local.i_sit_bbs.pojo.Dic" >
+    insert into dic_list
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="key != null" >
+        key,
+      </if>
+      <if test="value != null" >
+        value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="class != null" >
+        #{class,jdbcType=VARCHAR},
+      </if>
+      <if test="key != null" >
+        #{key,jdbcType=INTEGER},
+      </if>
+      <if test="value != null" >
+        #{value,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+
+  <select id="getDic" resultMap="BaseResultMap">
+    select * from dic_list
+  </select>
+</mapper>
