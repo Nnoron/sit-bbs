@@ -1,0 +1,159 @@
+<template>
+    <div class="classifyBody">
+      <!--锚点显示栏-->
+      <div class="anchorBar">
+        <Anchor show-ink offset-top="80" scroll-offset="70">
+          <AnchorLink v-for="(item,index) of classes" :key="index" :href="'#'+item.simpleName" :title="item.title" />
+
+          <!--<AnchorLink href="#API" title="API">-->
+            <!--<AnchorLink href="#Anchor_props" title="Anchor props" />-->
+            <!--<AnchorLink href="#Anchor_events" title="Anchor events" />-->
+            <!--<AnchorLink href="#AnchorLink_props" title="AnchorLink props" />-->
+          <!--</AnchorLink>-->
+        </Anchor>
+      </div>
+      <!--锚点显示栏-->
+
+      <div class="classify">
+        <div class="classifyContent" v-for="(classify,index) of classes" :key="index">
+          <div class="classTitle" :id="classify.simpleName">
+            <Icon type="md-menu" size="27"/>
+            {{classify.title}}
+            <!--<a :id="classify.simpleName" href="/"></a>-->
+          </div>
+          <div class="classItem">
+            <nuxt-link :to='{name:item.url,params:{classId:item.classId}}' v-for="(item,i) of classify.links" :key="i">
+              <div class="classLink">
+                <div class="linkText">
+                  【{{item.link}}】
+                </div>
+                <div class="linkDescribe">
+                  {{item.describe}}
+                </div>
+              </div>
+            </nuxt-link>
+
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+</template>
+
+<script>
+    export default {
+        name: "index",
+      data(){
+          return{
+            classes:[
+              {
+                simpleName:'xyxw',
+                title:'校园新闻',
+                links:[
+                  {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'classify-articleList',classId:'1-1'},
+                  {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'},
+                  {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
+                  {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'},
+                  {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
+                  {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'},
+                ]
+              },
+              {
+                simpleName:'wtqz',
+                title:'问题求助',
+                links:[
+                  {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
+                  {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'}
+                ]
+              },
+              {
+                simpleName:'xsjl',
+                title:'学术交流',
+                links:[
+                  {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
+                  {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'}
+                ]
+              }
+            ]
+          }
+      }
+    }
+</script>
+
+<style lang="less">
+
+  .classifyBody{
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+
+    .anchorBar{
+      position: fixed;
+      padding: 20px;
+      top: 170px;
+      left: 70px;
+      width: 200px;
+      border-right: #7f828b 10px solid;
+      /*height: 300px;*/
+      background: #f7f8fb;
+      font-size: 16px;
+      font-weight: bold;
+     }
+
+    .classify{
+      width: 70%;
+      height: 100%;
+      border-left: #7f828b 10px solid;
+      padding-bottom: 150px;
+      background: #f7f8fb;
+      margin-left: 300px;
+      display: flex;
+      flex-direction: column;
+      /*板块*/
+      .classifyContent{
+        margin-top: 60px;
+        margin-left: 20px;
+        padding-right: 30px;
+        .classTitle{
+          font-size: 24px;
+          font-weight: bold;
+          border-bottom: lightgray 2px solid;
+        }
+        /*链接父容器-调整链接排列*/
+        .classItem{
+          margin-top: 30px;
+          display: flex;
+          justify-content: left;
+          flex-wrap: wrap;
+          .classLink{
+            margin-left:20px;
+            margin-top: 20px;
+            width: 300px;
+            height: 90px;
+            border-radius: 5px;
+            padding: 8px;
+            background: #fff;
+            border: lightgray 1px solid;
+            cursor: pointer;
+            .linkText{
+              font-size: 22px;
+              color: cornflowerblue;
+              font-weight: bold;
+            }
+            .linkDescribe{
+              padding: 5px;
+              font-size: 13px;
+              color: #7f828b;
+            }
+          }
+          .classLink:hover{
+            filter:brightness(0.97);
+          }
+        }
+      }
+    }
+  }
+
+
+</style>
