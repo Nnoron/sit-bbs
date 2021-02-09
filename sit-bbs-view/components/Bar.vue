@@ -6,7 +6,7 @@
 
       <!--item-->
       <div class="link" :class='{active:$route.name===i.name}' v-for="i of menuitems" :key="i.text">
-        <nuxt-link class="linkText" :to= i.name>
+        <nuxt-link class="linkText" :to='{name:i.name}'>
           <span>{{ i.text }}</span>
         </nuxt-link>
       </div>
@@ -193,7 +193,7 @@ export default {
   }
 
   .beforeLogin{
-    z-index: 3;
+    z-index: 2000;
     position: fixed;
     top: 60px;
     float: right;
@@ -236,7 +236,7 @@ export default {
   }
 
   .searchBar{
-    z-index: 999;
+    z-index: 2000;
     width: 600px;
     height: 250px;
     box-shadow: 0 0 25px rgba(0,0,0,0.1);

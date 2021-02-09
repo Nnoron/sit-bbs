@@ -3,7 +3,7 @@
       <!--锚点显示栏-->
       <div class="anchorBar">
         <Anchor show-ink offset-top="80" scroll-offset="70">
-          <AnchorLink v-for="(item,index) of classes" :key="index" :href="'#'+item.simpleName" :title="item.title" />
+          <AnchorLink style="margin-top: 20px" v-for="(item,index) of classes" :key="index" :href="'#'+item.simpleName" :title="item.title" />
 
           <!--<AnchorLink href="#API" title="API">-->
             <!--<AnchorLink href="#Anchor_props" title="Anchor props" />-->
@@ -86,12 +86,13 @@
   .classifyBody{
     width: 100%;
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 40px;
 
     .anchorBar{
+      z-index: 999;
       position: fixed;
       padding: 20px;
-      top: 170px;
+      top: 120px;
       left: 70px;
       width: 200px;
       border-right: #7f828b 10px solid;

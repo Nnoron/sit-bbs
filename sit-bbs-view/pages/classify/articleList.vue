@@ -8,8 +8,7 @@
       created(){
       },
       mounted(){
-        // console.log($route.params);
-
+        console.log(this.$route.params);
       }
     }
 </script>
