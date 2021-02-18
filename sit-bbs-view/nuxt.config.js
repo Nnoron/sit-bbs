@@ -15,15 +15,17 @@ export default {
   // Global CSS (https://go.nuxtjs.dev/config-css)
   css: [
     'element-ui/lib/theme-chalk/index.css',
-    'view-design/dist/styles/iview.css'
-  ],
+    'view-design/dist/styles/iview.css',
+    'element-tiptap/lib/index.css',
+
+],
 
   // Plugins to run before rendering page (https://go.nuxtjs.dev/config-plugins)
   plugins: [
     {src:'@/plugins/element-ui',ssr:true},
     {src:'@/plugins/iview-ui',ssr:true},
-    {src:'@/plugins/virtual-collection',ssr:false},
-    {src:'@/plugins/vue-lazy-load',ssr:false}
+    {src:'@/plugins/vue-lazy-load',ssr:false},
+    {src:'@/plugins/element-tiptap',ssr:false},
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
@@ -46,7 +48,7 @@ export default {
 
   // Build Configuration (https://go.nuxtjs.dev/config-build)
   build: {
-    transpile: [/^element-ui/,/^iview-ui/,/^virtual-collection/]
+    transpile: [/^element-ui/,/^iview-ui/,/^element-tiptap/]
   }
 
 }
