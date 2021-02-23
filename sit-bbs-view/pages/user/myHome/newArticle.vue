@@ -1,5 +1,6 @@
 <template>
   <div class="newArticleBody">
+    <div style="width: 100%;height: 200px"></div>
     <div class="editor">
       <el-tiptap
         v-model="content"
@@ -37,11 +38,12 @@
     ListItem,
     BulletList,
     OrderedList,
-    Table,
-    TableHeader,
-    TableCell,
-    TableRow,
+    // Table,
+    // TableHeader,
+    // TableCell,
+    // TableRow,
     HorizontalRule,
+    History,
   } from 'element-tiptap';
 
   export default {
@@ -72,16 +74,22 @@
           new ListItem(),
           new BulletList(),
           new OrderedList(),
-          new Table(),
-          new TableHeader(),
-          new TableCell(),
-          new TableRow(),
+          // new Table(),
+          // new TableHeader(),
+          // new TableCell(),
+          // new TableRow(),
           new HorizontalRule(),
+          new History(),
         ],
         // editor's content
         content: ''
       };
     },
+    watch:{
+      content:function (newVal,oldVal) {
+        console.log(newVal);
+      }
+    }
   }
 </script>
 
@@ -92,9 +100,9 @@
     height:1000px;
     .editor{
       width: 70%;
-      height: 70%;
+      height: 75%;
       margin: auto;
-      padding: 100px 0;
+      padding: 50px 0;
     }
   }
 </style>

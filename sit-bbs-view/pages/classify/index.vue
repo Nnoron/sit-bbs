@@ -1,84 +1,92 @@
 <template>
-    <div class="classifyBody">
-      <!--锚点显示栏-->
-      <div class="anchorBar">
-        <Anchor show-ink offset-top="80" scroll-offset="70">
-          <AnchorLink style="margin-top: 20px" v-for="(item,index) of classes" :key="index" :href="'#'+item.simpleName" :title="item.title" />
+  <div class="classifyBody">
+    <!--锚点显示栏-->
+    <div class="anchorBar">
+      <Anchor show-ink :offset-top="80" :scroll-offset="70">
+        <AnchorLink style="margin-top: 20px" v-for="(item,index) of classes" :key="index" :href="'#'+item.simpleName" :title="item.title" />
 
-          <!--<AnchorLink href="#API" title="API">-->
-            <!--<AnchorLink href="#Anchor_props" title="Anchor props" />-->
-            <!--<AnchorLink href="#Anchor_events" title="Anchor events" />-->
-            <!--<AnchorLink href="#AnchorLink_props" title="AnchorLink props" />-->
-          <!--</AnchorLink>-->
-        </Anchor>
-      </div>
-      <!--锚点显示栏-->
+        <!--<AnchorLink href="#API" title="API">-->
+        <!--<AnchorLink href="#Anchor_props" title="Anchor props" />-->
+        <!--<AnchorLink href="#Anchor_events" title="Anchor events" />-->
+        <!--<AnchorLink href="#AnchorLink_props" title="AnchorLink props" />-->
+        <!--</AnchorLink>-->
+      </Anchor>
+    </div>
+    <!--锚点显示栏-->
 
-      <div class="classify">
-        <div class="classifyContent" v-for="(classify,index) of classes" :key="index">
-          <div class="classTitle" :id="classify.simpleName">
-            <Icon type="md-menu" size="27"/>
-            {{classify.title}}
-            <!--<a :id="classify.simpleName" href="/"></a>-->
-          </div>
-          <div class="classItem">
-            <nuxt-link :to='{name:item.url,params:{classId:item.classId}}' v-for="(item,i) of classify.links" :key="i">
-              <div class="classLink">
-                <div class="linkText">
-                  【{{item.link}}】
-                </div>
-                <div class="linkDescribe">
-                  {{item.describe}}
-                </div>
+    <div class="classify">
+      <div class="classifyContent" v-for="(classify,index) of classes" :key="index">
+        <div class="classTitle" :id="classify.simpleName">
+          <Icon type="md-menu" size="27"/>
+          {{classify.title}}
+          <!--<a :id="classify.simpleName" href="/"></a>-->
+        </div>
+        <div class="classItem">
+          <nuxt-link :to='{path:item.url,params:{classId:item.classId}}' v-for="(item,i) of classify.links" :key="i">
+            <div class="classLink">
+              <div class="linkText">
+                【{{item.link}}】
               </div>
-            </nuxt-link>
+              <div class="linkDescribe">
+                {{item.describe}}
+              </div>
+            </div>
+          </nuxt-link>
 
-          </div>
         </div>
       </div>
-
-
     </div>
+
+
+  </div>
 </template>
 
 <script>
-    export default {
-        name: "index",
-      data(){
-          return{
-            classes:[
-              {
-                simpleName:'xyxw',
-                title:'校园新闻',
-                links:[
-                  {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'classify-articleList',classId:'1-1'},
-                  {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'},
-                  {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
-                  {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'},
-                  {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
-                  {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'},
-                ]
-              },
-              {
-                simpleName:'wtqz',
-                title:'问题求助',
-                links:[
-                  {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
-                  {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'}
-                ]
-              },
-              {
-                simpleName:'xsjl',
-                title:'学术交流',
-                links:[
-                  {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
-                  {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'}
-                ]
-              }
+  export default {
+
+    data(){
+      return{
+        classes:[
+          {
+            simpleName:'xyxw',
+            title:'校园新闻',
+            links:[
+              {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/classify/articleList',classId:'1-1'},
+              {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'},
+              {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
+              {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'},
+              {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
+              {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'},
+            ]
+          },
+          {
+            simpleName:'wtqz',
+            title:'问题求助',
+            links:[
+              {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
+              {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'}
+            ]
+          },
+          {
+            simpleName:'xsjl',
+            title:'学术交流',
+            links:[
+              {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
+              {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'}
             ]
           }
+        ]
       }
+    },
+    watch:{
+      $route(to,from){
+        localStorage.setItem('curRouter',from.path);
+      }
+    },
+    mounted(){
+      console.log(this.$route);
     }
+  }
 </script>
 
 <style lang="less">
@@ -100,7 +108,7 @@
       background: #f7f8fb;
       font-size: 16px;
       font-weight: bold;
-     }
+    }
 
     .classify{
       width: 70%;

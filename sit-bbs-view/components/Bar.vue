@@ -169,7 +169,7 @@ export default {
     text-align: center;
     /*line-height: 55px;*/
     display: flex;
-    width: 200px;
+    width: 120px;
     color: #47494e;
     .headInfo{
       width: 53px;
@@ -184,7 +184,7 @@ export default {
     .userName{
       position: absolute;
       color: #7f828b;
-      margin:17px 10px 0;
+      margin: 17px 10px 0;
       font-weight: bold;
     }
     .userName:hover{

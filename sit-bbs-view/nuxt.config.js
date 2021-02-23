@@ -26,10 +26,15 @@ export default {
     {src:'@/plugins/iview-ui',ssr:true},
     {src:'@/plugins/vue-lazy-load',ssr:false},
     {src:'@/plugins/element-tiptap',ssr:false},
+    {src:'@/plugins/js-cookie',ssr:false}
   ],
 
   // Auto import components (https://go.nuxtjs.dev/config-components)
   components: true,
+
+  router: {
+    middleware: ['metaTitle']
+  },
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
