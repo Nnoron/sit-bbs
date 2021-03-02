@@ -40,5 +40,6 @@ html {
 </style>
 <script>
   export default {
+
   }
 </script>

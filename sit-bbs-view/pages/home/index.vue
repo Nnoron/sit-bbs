@@ -393,8 +393,7 @@
     .getMoreItem{
       line-height: 40px;
       color: #726a95;
-      font-family: 微软雅黑;
-      letter-spacing: 3px;
+      font-weight: bold;
     }
     .getMoreItem:hover{
       cursor: pointer;

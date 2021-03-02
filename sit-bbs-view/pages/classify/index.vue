@@ -4,12 +4,6 @@
     <div class="anchorBar">
       <Anchor show-ink :offset-top="80" :scroll-offset="70">
         <AnchorLink style="margin-top: 20px" v-for="(item,index) of classes" :key="index" :href="'#'+item.simpleName" :title="item.title" />
-
-        <!--<AnchorLink href="#API" title="API">-->
-        <!--<AnchorLink href="#Anchor_props" title="Anchor props" />-->
-        <!--<AnchorLink href="#Anchor_events" title="Anchor events" />-->
-        <!--<AnchorLink href="#AnchorLink_props" title="AnchorLink props" />-->
-        <!--</AnchorLink>-->
       </Anchor>
     </div>
     <!--锚点显示栏-->
@@ -22,7 +16,7 @@
           <!--<a :id="classify.simpleName" href="/"></a>-->
         </div>
         <div class="classItem">
-          <nuxt-link :to='{path:item.url,params:{classId:item.classId}}' v-for="(item,i) of classify.links" :key="i">
+          <nuxt-link :to="{path:'/classify/articleList',query:{classId:item.classId,title:item.link}}" v-for="(item,i) of classify.links" :key="i">
             <div class="classLink">
               <div class="linkText">
                 【{{item.link}}】
@@ -43,7 +37,8 @@
 
 <script>
   export default {
-
+    middleware:'metaTitle',
+    meta:{title:'分类浏览'},
     data(){
       return{
         classes:[
@@ -51,12 +46,12 @@
             simpleName:'xyxw',
             title:'校园新闻',
             links:[
-              {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/classify/articleList',classId:'1-1'},
-              {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'},
-              {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
-              {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'},
-              {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',url:'/1234'},
-              {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',url:'/1234'},
+              {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',classId:'1-1'},
+              {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',classId:'1-2'},
+              {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',classId:'1-3'},
+              {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',classId:'1-4'},
+              {link:'官方新闻',describe:'想掌握校园官方一手消息吗，那就来吧',classId:'1-5'},
+              {link:'民间传说',describe:'想掌握民间小道消息吗，嘘，快来吧',classId:'1-6'},
             ]
           },
           {
@@ -79,9 +74,6 @@
       }
     },
     watch:{
-      $route(to,from){
-        localStorage.setItem('curRouter',from.path);
-      }
     },
     mounted(){
       console.log(this.$route);
@@ -163,6 +155,4 @@
       }
     }
   }
-
-
 </style>

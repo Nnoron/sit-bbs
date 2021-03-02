@@ -45,16 +45,15 @@
     </div>
 
     <!--搜索栏-->
-    <div class="searchBar" v-show="searchBarShow" @mouseleave="searchBarShow = false">
+    <div class="searchBar" v-show="searchBarShow" @blur="getBlur()">
       <p style="font-size: 20px;font-family: 微软雅黑;color: darkgray;text-align: center;line-height: 20px;margin-top: 10px">
         搜索  <i class="el-icon-search"></i>
       </p>
       <div style="margin-top: 15px;text-align: center">
         <el-input placeholder="请输入内容" v-model="input3" class="input-with-select" style="width: 80%">
           <el-select v-model="select" slot="prepend" placeholder="请选择" style="width: 100px;">
-            <el-option label="餐厅名" value="1"></el-option>
-            <el-option label="订单号" value="2"></el-option>
-            <el-option label="用户电话" value="3"></el-option>
+            <el-option label="主题" value="1"></el-option>
+            <el-option label="用户名" value="2"></el-option>
           </el-select>
           <el-button slot="append" icon="el-icon-search"></el-button>
         </el-input>
@@ -106,6 +105,9 @@ export default {
   mounted(){
   },
   methods:{
+    getBlur(){
+      this.searchBarShow=false;
+    }
   }
 }
 </script>

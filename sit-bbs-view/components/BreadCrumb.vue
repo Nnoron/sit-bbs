@@ -5,7 +5,6 @@
       <el-breadcrumb-item v-if="item.meta.title!==undefined" v-for="(item,index) in routerData" :key="index" :to="item.path">{{item.meta.title}}</el-breadcrumb-item>
     </el-breadcrumb>
   </div>
-
 </template>
 
 <script>
@@ -17,11 +16,9 @@
         }
       },
       created(){
-
       },
       mounted(){
-        this.routerData=this.$route.matched;
-        console.log(this.$route.matched);
+        // this.routerData=this.$route.matched;
       },
     }
 </script>
